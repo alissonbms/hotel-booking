@@ -1,9 +1,10 @@
 import Entity from "../../../core/entities/entity";
 import Identity from "../../../core/entities/identity";
+import Email from "../../shared/value-objects/email";
 
 type EmployeeType = {
   name: string;
-  email: string;
+  email: Email;
   password: string;
 };
 
@@ -28,7 +29,7 @@ export default class Employee extends Entity<EmployeeType> {
     this.attributes.name = name;
   }
 
-  set email(email: string) {
+  set email(email: Email) {
     this.attributes.email = email;
   }
 

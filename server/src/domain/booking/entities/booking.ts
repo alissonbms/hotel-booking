@@ -1,18 +1,20 @@
 import Room from "../../employee/entities/room";
 import Entity from "../../../core/entities/entity";
 import Identity from "../../../core/entities/identity";
+import Email from "../../shared/value-objects/email";
+import { Optional } from "../../../core/types/optional";
 
 type BookingType = {
   room: Room;
   days: number;
   customer: string;
-  email: string;
+  email: Email;
   isActive: boolean;
 };
 
 export default class Booking extends Entity<BookingType> {
-  static create(data: BookingType, id?: Identity) {
-    return new Booking(data, id);
+  static create(data: Optional<BookingType, "isActive">, id?: Identity) {
+    return new Booking({ ...data, isActive: data.isActive ?? true }, id);
   }
   get room() {
     return this.attributes.room;
@@ -42,7 +44,7 @@ export default class Booking extends Entity<BookingType> {
     this.attributes.customer = customer;
   }
 
-  set email(email: string) {
+  set email(email: Email) {
     this.attributes.email = email;
   }
 

@@ -1,9 +1,11 @@
 import Entity from "../../../core/entities/entity";
 import Identity from "../../../core/entities/identity";
+import { Optional } from "../../../core/types/optional";
+import Money from "../../shared/value-objects/money";
 
 type RoomType = {
   name: string;
-  price: number;
+  price: Money;
   image: string;
   hasWifi: boolean;
   hasAir: boolean;
@@ -13,8 +15,24 @@ type RoomType = {
 };
 
 export default class Room extends Entity<RoomType> {
-  static create(data: RoomType, id?: Identity) {
-    return new Room(data, id);
+  static create(
+    data: Optional<
+      RoomType,
+      "hasWifi" | "hasAir" | "hasKitchen" | "isPetFriendly" | "isAvailable"
+    >,
+    id?: Identity,
+  ) {
+    return new Room(
+      {
+        ...data,
+        hasWifi: data.hasWifi ?? false,
+        hasAir: data.hasAir ?? false,
+        hasKitchen: data.hasKitchen ?? false,
+        isPetFriendly: data.isPetFriendly ?? false,
+        isAvailable: data.isPetFriendly ?? true,
+      },
+      id,
+    );
   }
 
   get name() {
@@ -53,7 +71,7 @@ export default class Room extends Entity<RoomType> {
     this.attributes.name = name;
   }
 
-  set price(price: number) {
+  set price(price: Money) {
     this.attributes.price = price;
   }
 
