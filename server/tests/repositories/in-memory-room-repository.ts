@@ -22,4 +22,9 @@ export class InMemoryRoomRepository implements RoomRepository {
 
     return room;
   }
+
+  async save(room: Room) {
+    const itemIndex = this.rooms.findIndex((item) => item.id === room.id);
+    this.rooms[itemIndex] = room;
+  }
 }
