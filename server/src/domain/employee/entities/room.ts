@@ -29,7 +29,7 @@ export default class Room extends Entity<RoomType> {
         hasAir: data.hasAir ?? false,
         hasKitchen: data.hasKitchen ?? false,
         isPetFriendly: data.isPetFriendly ?? false,
-        isAvailable: data.isPetFriendly ?? true,
+        isAvailable: data.isAvailable ?? true,
       },
       id,
     );

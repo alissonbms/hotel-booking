@@ -23,10 +23,10 @@ export class EditRoomUseCase {
       return null;
     }
 
-    const price = Money.create(data.price);
+    const roomPrice = Money.create(data.price);
 
     room.name = data.name;
-    room.price = price;
+    room.price = roomPrice;
     room.image = data.image;
     room.hasWifi = data.hasWifi;
     room.hasAir = data.hasAir;

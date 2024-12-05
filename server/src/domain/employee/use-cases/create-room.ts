@@ -17,8 +17,8 @@ export class CreateRoomUseCase {
   constructor(private roomRepository: RoomRepository) {}
 
   async handle(data: Request) {
-    const price = Money.create(data.price);
-    const room = Room.create({ ...data, price });
+    const roomPrice = Money.create(data.price);
+    const room = Room.create({ ...data, price: roomPrice });
     await this.roomRepository.create(room);
     return room;
   }
