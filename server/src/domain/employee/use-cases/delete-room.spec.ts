@@ -1,5 +1,7 @@
 import { InMemoryBookingRepository } from "../../../../tests/repositories/in-memory-booking-repository";
 import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
+import { NotAllowedError } from "../../../errors/custom-errors/not-allowed-error";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
 import Booking from "../../booking/entities/booking";
 import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";
@@ -28,14 +30,17 @@ describe("Delete a room", () => {
     expect(roomRepository.rooms[0]).toBeDefined();
     expect(roomRepository.rooms).toHaveLength(1);
 
-    await useCase.handle({ id: testRoom.id.toString() });
+    const response = await useCase.handle({ id: testRoom.id.toString() });
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toEqual("Room deleted successfully");
     expect(roomRepository.rooms[0]).toBeUndefined();
     expect(roomRepository.rooms).toHaveLength(0);
   });
   test("Should not find any rooms and return null", async () => {
     const response = await useCase.handle({ id: "123" });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotFoundError);
   });
   test("Should NOT delete a room with a booking", async () => {
     const testRoom = Room.create({
@@ -62,7 +67,8 @@ describe("Delete a room", () => {
 
     const response = await useCase.handle({ id: testRoom.id.toString() });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotAllowedError);
     expect(roomRepository.rooms).toHaveLength(1);
     expect(bookingRepository.bookings).toHaveLength(1);
   });

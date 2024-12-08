@@ -1,4 +1,5 @@
 import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
 import Money from "../../shared/value-objects/money";
 import Room from "../entities/room";
 import GetRoomUseCase from "./get-room";
@@ -27,13 +28,14 @@ describe("Get room", () => {
 
     const response = await useCase.handle({ id: room.id.toString() });
 
-    expect(response).toBeDefined();
-    expect(response?.name).toEqual("magnificent room");
+    expect(response.isRight()).toBe(true);
+    expect(response?.value).toBeInstanceOf(Room);
   });
 
   test("Should not find any rooms and return null", async () => {
     const response = await useCase.handle({ id: "123" });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotFoundError);
   });
 });

@@ -1,3 +1,4 @@
+import { Either, right } from "../../../errors/either/either";
 import Money from "../../shared/value-objects/money";
 import Room from "../entities/room";
 import { RoomRepository } from "../repositories/room-repository";
@@ -13,13 +14,15 @@ type Request = {
   isAvailable?: boolean;
 };
 
+type Response = Either<null, Room>;
+
 export class CreateRoomUseCase {
   constructor(private roomRepository: RoomRepository) {}
 
-  async handle(data: Request) {
+  async handle(data: Request): Promise<Response> {
     const roomPrice = Money.create(data.price);
     const room = Room.create({ ...data, price: roomPrice });
     await this.roomRepository.create(room);
-    return room;
+    return right(room);
   }
 }

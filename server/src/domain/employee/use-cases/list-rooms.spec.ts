@@ -25,15 +25,17 @@ describe("List rooms", () => {
 
     roomRepository.rooms.push(room);
 
-    const rooms = await useCase.handle();
+    const response = await useCase.handle();
 
-    expect(rooms).toHaveLength(1);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(1);
     expect(roomRepository.rooms).toHaveLength(1);
   });
   test("Should return an empty rooms array", async () => {
-    const rooms = await useCase.handle();
+    const response = await useCase.handle();
 
-    expect(rooms).toHaveLength(0);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(0);
     expect(roomRepository.rooms).toHaveLength(0);
   });
 });

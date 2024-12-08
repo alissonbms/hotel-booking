@@ -1,4 +1,5 @@
 import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
 import Money from "../../shared/value-objects/money";
 import Room from "../entities/room";
 import { EditRoomUseCase } from "./edit-room";
@@ -20,7 +21,7 @@ describe("Edit room", () => {
 
     roomRepository.rooms.push(room);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: room.id.toString(),
       name: "Edited name",
       price: 29345,
@@ -32,6 +33,8 @@ describe("Edit room", () => {
       isAvailable: false,
     });
 
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toBeInstanceOf(Room);
     expect(roomRepository.rooms[0].name).toEqual("Edited name");
     expect(roomRepository.rooms[0].price.value).toEqual(29345);
     expect(roomRepository.rooms[0].price.formattedPriceUSD()).toEqual(
@@ -56,6 +59,7 @@ describe("Edit room", () => {
       isAvailable: false,
     });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotFoundError);
   });
 });

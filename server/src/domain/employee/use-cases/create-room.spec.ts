@@ -1,5 +1,6 @@
 import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
 import Identity from "../../../core/entities/identity";
+import Room from "../entities/room";
 import { CreateRoomUseCase } from "./create-room";
 
 let roomRepository: InMemoryRoomRepository;
@@ -11,14 +12,18 @@ describe("Room creation", () => {
     useCase = new CreateRoomUseCase(roomRepository);
   });
   test("Should create a room", async () => {
-    const room = await useCase.handle({
+    const response = await useCase.handle({
       name: "Amazing Room",
       price: 1500,
       image: "amazingroom.png",
     });
 
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toBeInstanceOf(Room);
     expect(roomRepository.rooms[0].id).toBeInstanceOf(Identity);
-    expect(roomRepository.rooms[0].id.toString()).toEqual(room.id.toString());
+    expect(roomRepository.rooms[0].id.toString()).toEqual(
+      response.value?.id.toString(),
+    );
     expect(roomRepository.rooms[0].name).toEqual("Amazing Room");
     expect(roomRepository.rooms[0].price.value).toEqual(1500);
     expect(roomRepository.rooms[0].price.formattedPriceUSD()).toEqual(
