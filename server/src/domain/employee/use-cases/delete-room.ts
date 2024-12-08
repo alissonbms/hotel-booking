@@ -28,7 +28,9 @@ export class DeleteRoomUseCase {
     );
 
     if (bookingExists) {
-      return left(new NotAllowedError("is a booking registered for this room"));
+      return left(
+        new NotAllowedError("because is a booking registered for this room"),
+      );
     }
 
     await this.roomRepository.delete(id);

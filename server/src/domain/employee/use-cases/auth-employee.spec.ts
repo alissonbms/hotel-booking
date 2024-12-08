@@ -4,6 +4,7 @@ import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import { TokenSimulator } from "../../../../tests/services/token-simulator";
 import { AuthEmployeeUseCase } from "./auth-employee";
+import { InvalidCredentialsError } from "../../../errors/custom-errors/invalid-credentials-error";
 
 let employeeRepository: InMemoryEmployeeRepository;
 let hashRepository: HashSimulator;
@@ -37,9 +38,10 @@ describe("Authenticate employee", () => {
       password: "nn123",
     });
 
-    expect(response).toEqual({
-      token: expect.any(String),
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toEqual({
       employee: expect.any(Employee),
+      token: expect.any(String),
     });
   });
   test("Should not find any employees and return null", async () => {
@@ -48,7 +50,8 @@ describe("Authenticate employee", () => {
       password: "nn123",
     });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(InvalidCredentialsError);
   });
   test("Should NOT authenticate the employee with wrong credentials", async () => {
     const hashedPassword = await hashRepository.hash("nn123");
@@ -66,6 +69,7 @@ describe("Authenticate employee", () => {
       password: "nn1234",
     });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(InvalidCredentialsError);
   });
 });

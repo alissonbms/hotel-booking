@@ -20,6 +20,7 @@ describe("Room creation", () => {
 
     expect(response.isRight()).toBe(true);
     expect(response.value).toBeInstanceOf(Room);
+    expect(roomRepository.rooms[0]).toEqual(response.value);
     expect(roomRepository.rooms[0].id).toBeInstanceOf(Identity);
     expect(roomRepository.rooms[0].id.toString()).toEqual(
       response.value?.id.toString(),

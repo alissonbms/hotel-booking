@@ -1,4 +1,9 @@
+import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
+import { NotAllowedError } from "../../../errors/custom-errors/not-allowed-error";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { Either, left, right } from "../../../errors/either/either";
 import Email from "../../shared/value-objects/email";
+import Employee from "../entities/employee";
 import { EmployeeRepository } from "../repositories/employee-repository";
 import { HashRepository } from "../services/hash-repository";
 
@@ -9,29 +14,34 @@ type Request = {
   password: string;
 };
 
+type Response = Either<
+  NotFoundError | NotAllowedError | InvalidFormatError,
+  Employee
+>;
+
 export class EditEmployeeUseCase {
   constructor(
     private employeeRepository: EmployeeRepository,
     private hashRepository: HashRepository,
   ) {}
 
-  async handle(data: Request) {
+  async handle(data: Request): Promise<Response> {
     const employee = await this.employeeRepository.findById(data.id);
 
     if (!employee) {
-      return null;
+      return left(new NotFoundError("Employee"));
     }
 
     const emailOwner = await this.employeeRepository.findByEmail(data.email);
 
     if (emailOwner && emailOwner.id.toString() !== data.id) {
-      return null;
+      return left(new NotAllowedError("because email is already in use"));
     }
 
     const employeeEmail = Email.create(data.email);
 
     if (!employeeEmail.validate()) {
-      return null;
+      return left(new InvalidFormatError("email"));
     }
 
     const hashedPassword = await this.hashRepository.hash(data.password);
@@ -41,5 +51,6 @@ export class EditEmployeeUseCase {
     employee.password = hashedPassword;
 
     await this.employeeRepository.save(employee);
+    return right(employee);
   }
 }

@@ -1,5 +1,8 @@
 import { InMemoryEmployeeRepository } from "../../../../tests/repositories/in-memory-employee-repository";
 import { HashSimulator } from "../../../../tests/services/hash-simulator";
+import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
+import { NotAllowedError } from "../../../errors/custom-errors/not-allowed-error";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import { EditEmployeeUseCase } from "./edit-employee";
@@ -23,7 +26,7 @@ describe("Edit employee", () => {
 
     employeeRepository.employees.push(employee);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: employee.id.toString(),
       name: "edited name",
       email: "edited@email.com",
@@ -32,6 +35,8 @@ describe("Edit employee", () => {
 
     const hashedPassword = await hashRepository.hash("editedpassword");
 
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toBeInstanceOf(Employee);
     expect(employeeRepository.employees[0].name).toEqual("edited name");
     expect(employeeRepository.employees[0].email.value).toEqual(
       "edited@email.com",
@@ -47,13 +52,15 @@ describe("Edit employee", () => {
 
     employeeRepository.employees.push(employee);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: employee.id.toString(),
       name: "Nichols Jammerson",
       email: "nicholsjam@email.com",
       password: "nn123jam",
     });
 
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toBeInstanceOf(Employee);
     expect(employeeRepository.employees[0].email.value).toEqual(
       "nicholsjam@email.com",
     );
@@ -74,7 +81,8 @@ describe("Edit employee", () => {
       password: "editedpassword",
     });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(InvalidFormatError);
   });
 
   test("Should NOT edit the employee with email already in use", async () => {
@@ -100,7 +108,8 @@ describe("Edit employee", () => {
       password: "editednn123jam",
     });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotAllowedError);
   });
   test("Should not find any employees and return null", async () => {
     const response = await useCase.handle({
@@ -110,6 +119,7 @@ describe("Edit employee", () => {
       password: "editedpassword",
     });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotFoundError);
   });
 });

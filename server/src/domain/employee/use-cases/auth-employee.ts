@@ -1,3 +1,6 @@
+import { InvalidCredentialsError } from "../../../errors/custom-errors/invalid-credentials-error";
+import { Either, left, right } from "../../../errors/either/either";
+import Employee from "../entities/employee";
 import { EmployeeRepository } from "../repositories/employee-repository";
 import { HashRepository } from "../services/hash-repository";
 import { TokenRepository } from "../services/token-repository";
@@ -7,6 +10,11 @@ type Request = {
   password: string;
 };
 
+type Response = Either<
+  InvalidCredentialsError,
+  { employee: Employee; token: string }
+>;
+
 export class AuthEmployeeUseCase {
   constructor(
     private employeeRepository: EmployeeRepository,
@@ -14,11 +22,11 @@ export class AuthEmployeeUseCase {
     private tokenRepository: TokenRepository,
   ) {}
 
-  async handle(data: Request) {
+  async handle(data: Request): Promise<Response> {
     const employee = await this.employeeRepository.findByEmail(data.email);
 
     if (!employee) {
-      return null;
+      return left(new InvalidCredentialsError());
     }
 
     const passwordMatches = await this.hashRepository.compare(
@@ -27,7 +35,7 @@ export class AuthEmployeeUseCase {
     );
 
     if (!passwordMatches) {
-      return null;
+      return left(new InvalidCredentialsError());
     }
 
     const token = await this.tokenRepository.generate({
@@ -36,6 +44,6 @@ export class AuthEmployeeUseCase {
       email: employee.email.value,
     });
 
-    return { employee, token };
+    return right({ employee, token });
   }
 }

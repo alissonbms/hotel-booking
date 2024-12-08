@@ -20,15 +20,17 @@ describe("List employees", () => {
 
     employeeRepository.employees.push(employee);
 
-    const employees = await useCase.handle();
+    const response = await useCase.handle();
 
-    expect(employees).toHaveLength(1);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(1);
     expect(employeeRepository.employees).toHaveLength(1);
   });
   test("Should return an empty employees array", async () => {
-    const employees = await useCase.handle();
+    const response = await useCase.handle();
 
-    expect(employees).toHaveLength(0);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(0);
     expect(employeeRepository.employees).toHaveLength(0);
   });
 });
