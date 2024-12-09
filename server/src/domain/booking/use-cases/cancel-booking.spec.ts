@@ -1,5 +1,6 @@
 import { InMemoryBookingRepository } from "../../../../tests/repositories/in-memory-booking-repository";
 import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
 import Room from "../../employee/entities/room";
 import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";
@@ -36,14 +37,17 @@ describe("Cancel booking", () => {
 
     bookingRepository.bookings.push(booking);
 
-    await useCase.handle({ bookingId: booking.id.toString() });
+    const response = await useCase.handle({ bookingId: booking.id.toString() });
 
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toBeInstanceOf(Booking);
     expect(bookingRepository.bookings[0].isActive).toEqual(false);
     expect(roomRepository.rooms[0].isAvailable).toEqual(true);
   });
   test("Should not find any bookings and return null", async () => {
     const response = await useCase.handle({ bookingId: "123" });
 
-    expect(response).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotFoundError);
   });
 });

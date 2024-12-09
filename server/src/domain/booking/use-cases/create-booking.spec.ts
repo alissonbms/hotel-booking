@@ -4,6 +4,10 @@ import { CreateBookingUseCase } from "./create-booking";
 import Room from "../../employee/entities/room";
 import Money from "../../shared/value-objects/money";
 import Identity from "../../../core/entities/identity";
+import Booking from "../entities/booking";
+import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
+import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { RoomAlreadyBookedError } from "../../../errors/custom-errors/room-already-booked-error";
 
 let roomRepository: InMemoryRoomRepository;
 let bookingRepository: InMemoryBookingRepository;
@@ -39,17 +43,17 @@ describe("Create booking", () => {
   });
 
   test("Should create a booking", async () => {
-    const booking = await useCase.handle({
+    const response = await useCase.handle({
       roomId: "2",
       days: 10,
       customer: "John",
       email: "John@email.com",
     });
 
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toBeInstanceOf(Booking);
+    expect(bookingRepository.bookings[0]).toEqual(response.value);
     expect(bookingRepository.bookings[0].id).toBeInstanceOf(Identity);
-    expect(bookingRepository.bookings[0].id.toString()).toEqual(
-      booking?.id.toString(),
-    );
     expect(bookingRepository.bookings[0].room).toBeInstanceOf(Room);
     expect(bookingRepository.bookings[0].room.isAvailable).toEqual(false);
     expect(bookingRepository.bookings[0].days).toEqual(10);
@@ -58,33 +62,36 @@ describe("Create booking", () => {
     expect(bookingRepository.bookings[0].isActive).toEqual(true);
   });
   test("Should NOT create a booking with a customer invalid email", async () => {
-    const booking = await useCase.handle({
+    const response = await useCase.handle({
       roomId: "2",
       days: 10,
       customer: "John",
       email: "John@email",
     });
 
-    expect(booking).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(InvalidFormatError);
   });
   test("Should NOT create a booking for a non-existent room", async () => {
-    const booking = await useCase.handle({
+    const response = await useCase.handle({
       roomId: "123",
       days: 10,
       customer: "John",
       email: "John@email.com",
     });
 
-    expect(booking).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(NotFoundError);
   });
   test("Should NOT create a reservation for a room that is already booked", async () => {
-    const booking = await useCase.handle({
+    const response = await useCase.handle({
       roomId: "3",
       days: 10,
       customer: "John",
       email: "John@email.com",
     });
 
-    expect(booking).toBeNull();
+    expect(response.isLeft()).toBe(true);
+    expect(response.value).toBeInstanceOf(RoomAlreadyBookedError);
   });
 });

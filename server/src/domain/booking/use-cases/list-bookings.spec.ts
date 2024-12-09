@@ -34,15 +34,17 @@ describe("List bookings", () => {
 
     bookingRepository.bookings.push(booking);
 
-    const bookings = await useCase.handle();
+    const response = await useCase.handle();
 
-    expect(bookings).toHaveLength(1);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(1);
     expect(bookingRepository.bookings).toHaveLength(1);
   });
   test("Should return an empty bookings array", async () => {
-    const bookings = await useCase.handle();
+    const response = await useCase.handle();
 
-    expect(bookings).toHaveLength(0);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(0);
     expect(bookingRepository.bookings).toHaveLength(0);
   });
 });
