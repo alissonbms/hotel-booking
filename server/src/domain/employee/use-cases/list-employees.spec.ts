@@ -1,4 +1,4 @@
-import { InMemoryEmployeeRepository } from "../../../../tests/repositories/in-memory-employee-repository";
+import { InMemoryEmployeeRepository } from "../../../../test/repositories/in-memory-employee-repository";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import { ListEmployeesUseCase } from "./list-employees";

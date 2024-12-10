@@ -1,13 +1,13 @@
-import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
-import { InMemoryBookingRepository } from "../../../../tests/repositories/in-memory-booking-repository";
+import { InMemoryRoomRepository } from "../../../../test/repositories/in-memory-room-repository";
+import { InMemoryBookingRepository } from "../../../../test/repositories/in-memory-booking-repository";
 import { CreateBookingUseCase } from "./create-booking";
 import Room from "../../employee/entities/room";
 import Money from "../../shared/value-objects/money";
 import Identity from "../../../core/entities/identity";
 import Booking from "../entities/booking";
-import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
-import { RoomAlreadyBookedError } from "../../../errors/custom-errors/room-already-booked-error";
+import { InvalidFormatError } from "../../../core/errors/custom-errors/invalid-format-error";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
+import { RoomAlreadyBookedError } from "../../../core/errors/custom-errors/room-already-booked-error";
 
 let roomRepository: InMemoryRoomRepository;
 let bookingRepository: InMemoryBookingRepository;

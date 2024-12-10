@@ -1,8 +1,8 @@
-import { InMemoryEmployeeRepository } from "../../../../tests/repositories/in-memory-employee-repository";
+import { InMemoryEmployeeRepository } from "../../../../test/repositories/in-memory-employee-repository";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import GetEmployeeUseCase from "./get-employee";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 
 let employeeRepository: InMemoryEmployeeRepository;
 let useCase: GetEmployeeUseCase;

@@ -1,4 +1,4 @@
-import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
+import { InMemoryRoomRepository } from "../../../../test/repositories/in-memory-room-repository";
 import Money from "../../shared/value-objects/money";
 import Room from "../entities/room";
 import { ListRoomsUseCase } from "./list-rooms";

@@ -1,5 +1,5 @@
-import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { InMemoryRoomRepository } from "../../../../test/repositories/in-memory-room-repository";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 import Money from "../../shared/value-objects/money";
 import Room from "../entities/room";
 import { EditRoomUseCase } from "./edit-room";

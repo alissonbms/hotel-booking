@@ -1,7 +1,7 @@
-import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
-import { NotAllowedError } from "../../../errors/custom-errors/not-allowed-error";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
-import { Either, left, right } from "../../../errors/either/either";
+import { InvalidFormatError } from "../../../core/errors/custom-errors/invalid-format-error";
+import { NotAllowedError } from "../../../core/errors/custom-errors/not-allowed-error";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
+import { Either, left, right } from "../../../core/errors/either/either";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import { EmployeeRepository } from "../repositories/employee-repository";

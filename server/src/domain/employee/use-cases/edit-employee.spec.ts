@@ -1,8 +1,8 @@
-import { InMemoryEmployeeRepository } from "../../../../tests/repositories/in-memory-employee-repository";
-import { HashSimulator } from "../../../../tests/services/hash-simulator";
-import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
-import { NotAllowedError } from "../../../errors/custom-errors/not-allowed-error";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { InMemoryEmployeeRepository } from "../../../../test/repositories/in-memory-employee-repository";
+import { HashSimulator } from "../../../../test/services/hash-simulator";
+import { InvalidFormatError } from "../../../core/errors/custom-errors/invalid-format-error";
+import { NotAllowedError } from "../../../core/errors/custom-errors/not-allowed-error";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import { EditEmployeeUseCase } from "./edit-employee";

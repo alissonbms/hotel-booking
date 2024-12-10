@@ -1,4 +1,4 @@
-import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
+import { InMemoryRoomRepository } from "../../../../test/repositories/in-memory-room-repository";
 import Identity from "../../../core/entities/identity";
 import Room from "../entities/room";
 import { CreateRoomUseCase } from "./create-room";

@@ -1,5 +1,5 @@
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
-import { Either, left, right } from "../../../errors/either/either";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
+import { Either, left, right } from "../../../core/errors/either/either";
 import Employee from "../entities/employee";
 import { EmployeeRepository } from "../repositories/employee-repository";
 

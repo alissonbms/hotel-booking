@@ -1,6 +1,6 @@
-import { InMemoryBookingRepository } from "../../../../tests/repositories/in-memory-booking-repository";
-import { InMemoryRoomRepository } from "../../../../tests/repositories/in-memory-room-repository";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { InMemoryBookingRepository } from "../../../../test/repositories/in-memory-booking-repository";
+import { InMemoryRoomRepository } from "../../../../test/repositories/in-memory-room-repository";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 import Room from "../../employee/entities/room";
 import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";

@@ -1,6 +1,6 @@
-import { NotAllowedError } from "../../../errors/custom-errors/not-allowed-error";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
-import { Either, left, right } from "../../../errors/either/either";
+import { NotAllowedError } from "../../../core/errors/custom-errors/not-allowed-error";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
+import { Either, left, right } from "../../../core/errors/either/either";
 import { BookingRepository } from "../../booking/repositories/booking-repository";
 import { RoomRepository } from "../repositories/room-repository";
 

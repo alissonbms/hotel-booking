@@ -1,5 +1,5 @@
-import { InMemoryEmployeeRepository } from "../../../../tests/repositories/in-memory-employee-repository";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
+import { InMemoryEmployeeRepository } from "../../../../test/repositories/in-memory-employee-repository";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
 import { DeleteEmployeeUseCase } from "./delete-employee";

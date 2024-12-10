@@ -1,4 +1,4 @@
-import { Either, right } from "../../../errors/either/either";
+import { Either, right } from "../../../core/errors/either/either";
 import Employee from "../entities/employee";
 import { EmployeeRepository } from "../repositories/employee-repository";
 

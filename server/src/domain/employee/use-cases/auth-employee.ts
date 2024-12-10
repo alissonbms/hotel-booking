@@ -1,5 +1,5 @@
-import { InvalidCredentialsError } from "../../../errors/custom-errors/invalid-credentials-error";
-import { Either, left, right } from "../../../errors/either/either";
+import { InvalidCredentialsError } from "../../../core/errors/custom-errors/invalid-credentials-error";
+import { Either, left, right } from "../../../core/errors/either/either";
 import Employee from "../entities/employee";
 import { EmployeeRepository } from "../repositories/employee-repository";
 import { HashRepository } from "../services/hash-repository";

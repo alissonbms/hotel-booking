@@ -1,10 +1,10 @@
-import { InMemoryEmployeeRepository } from "../../../../tests/repositories/in-memory-employee-repository";
-import { HashSimulator } from "../../../../tests/services/hash-simulator";
+import { InMemoryEmployeeRepository } from "../../../../test/repositories/in-memory-employee-repository";
+import { HashSimulator } from "../../../../test/services/hash-simulator";
 import Email from "../../shared/value-objects/email";
 import Employee from "../entities/employee";
-import { TokenSimulator } from "../../../../tests/services/token-simulator";
+import { TokenSimulator } from "../../../../test/services/token-simulator";
 import { AuthEmployeeUseCase } from "./auth-employee";
-import { InvalidCredentialsError } from "../../../errors/custom-errors/invalid-credentials-error";
+import { InvalidCredentialsError } from "../../../core/errors/custom-errors/invalid-credentials-error";
 
 let employeeRepository: InMemoryEmployeeRepository;
 let hashRepository: HashSimulator;

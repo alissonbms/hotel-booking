@@ -1,4 +1,4 @@
-import { Either, right } from "../../../errors/either/either";
+import { Either, right } from "../../../core/errors/either/either";
 import Booking from "../entities/booking";
 import { BookingRepository } from "../repositories/booking-repository";
 

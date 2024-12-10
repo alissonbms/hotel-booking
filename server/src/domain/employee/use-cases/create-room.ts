@@ -1,4 +1,4 @@
-import { Either, right } from "../../../errors/either/either";
+import { Either, right } from "../../../core/errors/either/either";
 import Money from "../../shared/value-objects/money";
 import Room from "../entities/room";
 import { RoomRepository } from "../repositories/room-repository";

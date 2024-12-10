@@ -1,7 +1,7 @@
-import { InvalidFormatError } from "../../../errors/custom-errors/invalid-format-error";
-import { NotFoundError } from "../../../errors/custom-errors/not-found-error";
-import { RoomAlreadyBookedError } from "../../../errors/custom-errors/room-already-booked-error";
-import { Either, left, right } from "../../../errors/either/either";
+import { InvalidFormatError } from "../../../core/errors/custom-errors/invalid-format-error";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
+import { RoomAlreadyBookedError } from "../../../core/errors/custom-errors/room-already-booked-error";
+import { Either, left, right } from "../../../core/errors/either/either";
 import { RoomRepository } from "../../employee/repositories/room-repository";
 import Email from "../../shared/value-objects/email";
 import Booking from "../entities/booking";
