@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
   // Use ts-jest preset for testing TypeScript files with Jest
   preset: "ts-jest",
   // Set the test environment to Node.js
@@ -27,3 +29,5 @@ module.exports = {
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",
 };
+
+export default config;
