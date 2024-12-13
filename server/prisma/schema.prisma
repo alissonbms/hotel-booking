@@ -15,3 +15,30 @@ model Employee {
 
   @@map("employees")
 }
+
+model Room {
+  id            String    @id @default(uuid()) @db.Uuid
+  name          String
+  price         Int
+  image         String
+  hasWifi       Boolean   @map("has_wifi")
+  hasAir        Boolean   @map("has_air")
+  hasKitchen    Boolean   @map("has_kitchen")
+  isPetFriendly Boolean   @map("is_pet_friendly")
+  isAvailable   Boolean   @map("is_available")
+  Bookings      Booking[]
+
+  @@map("rooms")
+}
+
+model Booking {
+  id       String  @id @default(uuid()) @db.Uuid
+  days     Int
+  customer String
+  email    String
+  isActive Boolean @map("is_active")
+  roomId   String  @map("room_id") @db.Uuid
+  room     Room    @relation(fields: [roomId], references: [id])
+
+  @@map("bookings")
+}
