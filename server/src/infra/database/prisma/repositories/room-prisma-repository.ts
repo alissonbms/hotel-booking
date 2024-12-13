@@ -2,7 +2,9 @@ import { PrismaService } from "../prisma.service";
 import { RoomPrismaMapper } from "../mappers/room-prisma-mapper";
 import Room from "@/domain/employee/entities/room";
 import { RoomRepository } from "@/domain/employee/repositories/room-repository";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class RoomPrismaRepository implements RoomRepository {
   constructor(private readonly prismaService: PrismaService) {}
 

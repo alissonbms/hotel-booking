@@ -2,7 +2,9 @@ import Employee from "@/domain/employee/entities/employee";
 import { EmployeeRepository } from "@/domain/employee/repositories/employee-repository";
 import { PrismaService } from "../prisma.service";
 import { EmployeePrismaMapper } from "../mappers/employee-prisma-mapper";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class EmployeePrismaRepository implements EmployeeRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
