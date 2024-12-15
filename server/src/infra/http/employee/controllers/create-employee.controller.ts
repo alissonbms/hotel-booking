@@ -1,5 +1,6 @@
 import { CreateEmployeeUseCase } from "@/domain/employee/use-cases/create-employee";
 import { BadRequestException, Body, Controller, Post } from "@nestjs/common";
+import { EmployeePresenter } from "../../presenters/employee-presenter";
 
 @Controller("/employees")
 export class CreateEmployeeController {
@@ -16,9 +17,9 @@ export class CreateEmployeeController {
     });
 
     if (response.isLeft()) {
-      return new BadRequestException(response.value.message);
+      throw new BadRequestException(response.value.message);
     }
 
-    return response.value;
+    return EmployeePresenter.toHTTP(response.value);
   }
 }
