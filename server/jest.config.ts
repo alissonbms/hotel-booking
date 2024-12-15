@@ -1,18 +1,21 @@
 import type { Config } from "jest";
 
+import { pathsToModuleNameMapper } from "ts-jest";
+import { compilerOptions } from "./tsconfig.json";
+
+const paths = pathsToModuleNameMapper(compilerOptions.paths, {
+  prefix: "<rootDir>/",
+});
+
 const config: Config = {
   // Use ts-jest preset for testing TypeScript files with Jest
   preset: "ts-jest",
+
   // Set the test environment to Node.js
   testEnvironment: "node",
 
   // Define the root directory for tests and modules
   roots: ["<rootDir>/"],
-
-  // Use ts-jest to transform TypeScript files
-  transform: {
-    "^.+\\.tsx?$": "ts-jest",
-  },
 
   // Regular expression to find test files
   testRegex: "((\\.|/)(test|spec))\\.tsx?$",
@@ -28,6 +31,10 @@ const config: Config = {
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",
+
+  moduleNameMapper: {
+    ...paths,
+  },
 };
 
 export default config;
