@@ -1,6 +1,6 @@
 import Employee from "@/domain/employee/entities/employee";
 
-export class EmployeePresenter {
+export class CreateEmployeePresenter {
   static toHTTP(entity: Employee) {
     return {
       id: entity.id.toString(),
