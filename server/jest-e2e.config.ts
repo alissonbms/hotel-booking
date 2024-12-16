@@ -15,6 +15,7 @@ const config: Config = {
   moduleNameMapper: {
     ...paths,
   },
+  setupFilesAfterEnv: ["./test/setup-database.ts"],
 };
 
 export default config;
