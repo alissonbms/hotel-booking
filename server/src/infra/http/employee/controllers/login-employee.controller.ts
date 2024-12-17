@@ -8,8 +8,10 @@ import {
 } from "@nestjs/common";
 import { LoginEmployeeDto } from "../dtos/login-employee-dto";
 import { LoginEmployeePresenter } from "../../presenters/login-employee-presenter";
+import { Public } from "@/infra/auth/public";
 
 @Controller("/login")
+@Public()
 export class LoginEmployeeController {
   constructor(private readonly authEmployee: AuthEmployeeUseCase) {}
 
