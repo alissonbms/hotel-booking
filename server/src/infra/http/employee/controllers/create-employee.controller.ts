@@ -7,7 +7,7 @@ import {
   Post,
 } from "@nestjs/common";
 import { CreateEmployeeDto } from "../dtos/create-employee-dto";
-import { CreateEmployeePresenter } from "../../presenters/create-employee-presenter";
+import { EmployeePresenter } from "../../presenters/employee-presenter";
 
 @Controller("/employees")
 export class CreateEmployeeController {
@@ -28,6 +28,6 @@ export class CreateEmployeeController {
       throw new BadRequestException(response.value.message);
     }
 
-    return CreateEmployeePresenter.toHTTP(response.value);
+    return EmployeePresenter.toHTTP(response.value);
   }
 }
