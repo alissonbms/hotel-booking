@@ -10,7 +10,7 @@ import { AuthModule } from "@/infra/auth/auth.module";
 import { randomUUID } from "node:crypto";
 import { Employee } from "@prisma/client";
 
-describe("GetEmployeeController (e2e)", () => {
+describe("EditEmployeeController (e2e)", () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let jwt: JwtService;
@@ -39,17 +39,27 @@ describe("GetEmployeeController (e2e)", () => {
     });
   });
 
-  test("/employees/:id (GET)", async () => {
+  test("/employees/:id (PUT)", async () => {
     const token = jwt.sign(employee);
 
     const response = await request(app.getHttpServer())
+      .put(`/employees/${employee.id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "John",
+        email: "john@email.com",
+        password: "1234abc",
+      });
+
+    expect(response.statusCode).toBe(204);
+
+    const response2 = await request(app.getHttpServer())
       .get(`/employees/${employee.id}`)
       .set("Authorization", `Bearer ${token}`)
       .send();
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("id", employee.id);
-    expect(response.body).toHaveProperty("name", "Jess");
-    expect(response.body).toHaveProperty("email", "jess@email.com");
+    expect(response2.statusCode).toBe(200);
+    expect(response2.body).toHaveProperty("name", "John");
+    expect(response2.body).toHaveProperty("email", "john@email.com");
   });
 });

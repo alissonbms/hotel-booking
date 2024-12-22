@@ -10,7 +10,7 @@ import { AuthModule } from "@/infra/auth/auth.module";
 import { randomUUID } from "node:crypto";
 import { Employee } from "@prisma/client";
 
-describe("GetEmployeeController (e2e)", () => {
+describe("DeleteEmployeeController (e2e)", () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let jwt: JwtService;
@@ -39,17 +39,23 @@ describe("GetEmployeeController (e2e)", () => {
     });
   });
 
-  test("/employees/:id (GET)", async () => {
+  test("/employees/:id (DELETE)", async () => {
     const token = jwt.sign(employee);
 
+    const employee2 = await prisma.employee.create({
+      data: {
+        id: randomUUID(),
+        name: "John",
+        email: "john@email.com",
+        password: "1234abc",
+      },
+    });
+
     const response = await request(app.getHttpServer())
-      .get(`/employees/${employee.id}`)
+      .delete(`/employees/${employee2.id}`)
       .set("Authorization", `Bearer ${token}`)
       .send();
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("id", employee.id);
-    expect(response.body).toHaveProperty("name", "Jess");
-    expect(response.body).toHaveProperty("email", "jess@email.com");
+    expect(response.statusCode).toBe(204);
   });
 });

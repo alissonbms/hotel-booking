@@ -12,6 +12,10 @@ import { ListEmployeesUseCase } from "@/domain/employee/use-cases/list-employees
 import { ListEmployeesController } from "./controllers/list-employees.controller";
 import { GetEmployeeController } from "./controllers/get-employee.controller";
 import GetEmployeeUseCase from "@/domain/employee/use-cases/get-employee";
+import { DeleteEmployeeUseCase } from "@/domain/employee/use-cases/delete-employee";
+import { DeleteEmployeeController } from "./controllers/delete-employee.controller";
+import { EditEmployeeController } from "./controllers/edit-employee.controller";
+import { EditEmployeeUseCase } from "@/domain/employee/use-cases/edit-employee";
 
 @Module({
   imports: [EncryptionModule, DatabaseModule],
@@ -55,12 +59,31 @@ import GetEmployeeUseCase from "@/domain/employee/use-cases/get-employee";
       },
       inject: [EmployeeRepository],
     },
+    {
+      provide: EditEmployeeUseCase,
+      useFactory: (
+        employeeRepository: EmployeeRepository,
+        hashRepository: HashRepository,
+      ) => {
+        return new EditEmployeeUseCase(employeeRepository, hashRepository);
+      },
+      inject: [EmployeeRepository, HashRepository],
+    },
+    {
+      provide: DeleteEmployeeUseCase,
+      useFactory: (employeeRepository: EmployeeRepository) => {
+        return new DeleteEmployeeUseCase(employeeRepository);
+      },
+      inject: [EmployeeRepository],
+    },
   ],
   controllers: [
     CreateEmployeeController,
     LoginEmployeeController,
     ListEmployeesController,
     GetEmployeeController,
+    EditEmployeeController,
+    DeleteEmployeeController,
   ],
 })
 export class EmployeeModule {}
