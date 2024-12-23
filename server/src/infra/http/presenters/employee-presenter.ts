@@ -1,11 +1,11 @@
 import Employee from "@/domain/employee/entities/employee";
 
 export class EmployeePresenter {
-  static toHTTP(entity: Employee) {
+  static toHTTP(employee: Employee) {
     return {
-      id: entity.id.toString(),
-      name: entity.name,
-      email: entity.email.value,
+      id: employee.id.toString(),
+      name: employee.name,
+      email: employee.email.value,
     };
   }
 }

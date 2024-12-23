@@ -1,17 +1,17 @@
 import Room from "@/domain/employee/entities/room";
 
 export class RoomPresenter {
-  static toHTTP(entity: Room) {
+  static toHTTP(room: Room) {
     return {
-      id: entity.id.toString(),
-      name: entity.name,
-      price: entity.price.value,
-      image: entity.image,
-      hasWifi: entity.hasWifi,
-      hasAir: entity.hasAir,
-      hasKitchen: entity.hasKitchen,
-      isPetFriendly: entity.isPetFriendly,
-      isAvailable: entity.isAvailable,
+      id: room.id.toString(),
+      name: room.name,
+      price: room.price.value,
+      image: room.image,
+      hasWifi: room.hasWifi,
+      hasAir: room.hasAir,
+      hasKitchen: room.hasKitchen,
+      isPetFriendly: room.isPetFriendly,
+      isAvailable: room.isAvailable,
     };
   }
 }
