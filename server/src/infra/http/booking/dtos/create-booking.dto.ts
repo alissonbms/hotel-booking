@@ -8,8 +8,8 @@ import {
 } from "class-validator";
 
 export class CreateBookingDto {
-  @IsNotEmpty({ message: "roomId should not be empty" })
-  @IsUUID("all", { message: "roomId should be a valid UUID" })
+  @IsNotEmpty({ message: "Room ID should not be empty" })
+  @IsUUID("all", { message: "Room ID should be a valid UUID" })
   roomId: string;
 
   @IsNotEmpty({ message: "Days should not be empty" })
