@@ -7,8 +7,8 @@ export class BookingPresenter {
       id: booking.id.toString(),
       room: RoomPresenter.toHTTP(booking.room),
       days: booking.days,
-      customer: booking.room,
-      email: booking.email,
+      customer: booking.customer,
+      email: booking.email.value,
       isActive: booking.isActive,
     };
   }
