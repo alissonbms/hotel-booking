@@ -6,7 +6,6 @@ import { PrismaService } from "@/infra/database/prisma/prisma.service";
 import { DatabaseModule } from "@/infra/database/database.module";
 import { hash } from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
-import { AuthModule } from "@/infra/auth/auth.module";
 import { randomUUID } from "node:crypto";
 import { Employee } from "@prisma/client";
 
@@ -18,7 +17,7 @@ describe("CreateEmployeeController (e2e)", () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, DatabaseModule, AuthModule],
+      imports: [AppModule, DatabaseModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
