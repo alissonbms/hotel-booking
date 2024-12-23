@@ -57,5 +57,9 @@ describe("DeleteEmployeeController (e2e)", () => {
       .send();
 
     expect(response.statusCode).toBe(204);
+
+    const employees = await prisma.employee.findMany();
+
+    expect(employees).toHaveLength(1);
   });
 });

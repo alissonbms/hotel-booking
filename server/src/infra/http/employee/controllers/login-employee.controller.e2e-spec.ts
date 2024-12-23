@@ -36,5 +36,7 @@ describe("LoginEmployeeController (e2e)", () => {
     });
 
     expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty("employee");
+    expect(response.body).toHaveProperty("token");
   });
 });

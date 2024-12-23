@@ -52,5 +52,7 @@ describe("CreateEmployeeController (e2e)", () => {
       });
 
     expect(response.statusCode).toBe(201);
+    expect(response.body).toHaveProperty("name", "John");
+    expect(response.body).toHaveProperty("email", "john@email.com");
   });
 });
