@@ -30,6 +30,21 @@ class EnvironmentVariables {
 
   @IsString()
   JWT_SECRET: string;
+
+  @IsString()
+  S3_KEY_ID: string;
+
+  @IsString()
+  S3_ACCESS_KEY: string;
+
+  @IsString()
+  S3_REGION: string;
+
+  @IsString()
+  S3_ENDPOINT: string;
+
+  @IsString()
+  S3_BUCKET: string;
 }
 
 export function validate(config: Record<string, unknown>) {
