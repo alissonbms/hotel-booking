@@ -1,9 +1,11 @@
 import { plainToInstance } from "class-transformer";
 import {
+  IsEmail,
   IsEnum,
   IsNumber,
   IsString,
   IsUrl,
+  IsUUID,
   Max,
   Min,
   validateSync,
@@ -45,6 +47,20 @@ class EnvironmentVariables {
 
   @IsString()
   S3_BUCKET: string;
+
+  @IsUUID()
+  @IsString()
+  ADMIN_UUID: string;
+
+  @IsString()
+  ADMIN_NAME: string;
+
+  @IsEmail()
+  @IsString()
+  ADMIN_EMAIL: string;
+
+  @IsString()
+  ADMIN_PASSWORD: string;
 }
 
 export function validate(config: Record<string, unknown>) {
