@@ -1,5 +1,11 @@
 @use "./layout-spaces.scss";
 
+:root {
+  --bg-color: #f3f2f1;
+  --gray-900: #222222;
+  --orange-400: #fa7436;
+}
+
 html,
 body {
   width: 100vw;
