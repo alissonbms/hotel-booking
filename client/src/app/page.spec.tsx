@@ -18,9 +18,11 @@ describe("Test the Home page", () => {
   test("Should have a logo in Home Page", async () => {
     render(<Home />);
 
-    const logo = await screen.findByText("Cubic Hotel");
-    const img = await screen.findByRole("img");
-    expect(logo).toBeInTheDocument();
-    expect(img).toBeInTheDocument();
+    const logoTitle = await screen.findByText("Cubic Hotel");
+    const logoImage = await screen.findByRole("img", {
+      name: "Cubic Hotel image logo",
+    });
+    expect(logoTitle).toBeInTheDocument();
+    expect(logoImage).toBeInTheDocument();
   });
 });
