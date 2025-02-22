@@ -15,12 +15,12 @@ export default function Home() {
         <div className={styles["header--buttons"]}>
           <Link href="rooms">
             <Button colors="orange" variant="normal" width={206}>
-              Reservar quarto
+              Book room
             </Button>
           </Link>
-          <Link href="/reservation-consult">
+          <Link href="/booking-check">
             <Button colors="orange__outline" variant="normal" width={206}>
-              Consultar reserva
+              Check booking
             </Button>
           </Link>
         </div>
@@ -29,15 +29,15 @@ export default function Home() {
       <div className={`${styles.content} max-width`}>
         <div className={styles["content-left"]}>
           <h1>
-            Comece sua emocionante <span>jornada</span> conosco.
+            Start your exciting <span>journey</span> with us.
           </h1>
           <p>
-            Uma equipe de experientes profissionais de turismo irá fornecer-lhe
-            os melhores conselhos e dicas para o seu hospedagem de desejo.
+            A team of professional tourism experts will provide you with the
+            best advice and tips for your desired accommodation.
           </p>
           <Link href="/rooms">
             <Button colors="orange__outline" variant="normal" width={206}>
-              Descobrir agora
+              Find out now
             </Button>
           </Link>
         </div>

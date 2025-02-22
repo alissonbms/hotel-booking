@@ -6,14 +6,14 @@ describe("Test the Home page", () => {
     render(<Home />);
 
     const buttons = await screen.findAllByRole("button");
-    const reservationBtn = screen.queryByText("Reservar quarto");
-    const consultBtn = screen.queryByText("Consultar reserva");
-    const discoveryBtn = screen.queryByText("Descobrir agora");
+    const bookBtn = screen.queryByText("Book room");
+    const checkBtn = screen.queryByText("Check booking");
+    const FindOutBtn = screen.queryByText("Find out now");
 
     expect(buttons).toHaveLength(3);
-    expect(reservationBtn).toBeInTheDocument();
-    expect(consultBtn).toBeInTheDocument();
-    expect(discoveryBtn).toBeInTheDocument();
+    expect(bookBtn).toBeInTheDocument();
+    expect(checkBtn).toBeInTheDocument();
+    expect(FindOutBtn).toBeInTheDocument();
   });
   test("Should have a logo in Home Page", async () => {
     render(<Home />);
