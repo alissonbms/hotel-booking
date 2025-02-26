@@ -1,12 +1,57 @@
 input {
+  border-radius: 8px;
+  border: 1px solid var(--gray-100);
+
   &::placeholder {
     text-align: center;
-
-    color: #414141;
+    color: var(--gray-600);
     font-family: var(--font-inter);
     font-size: 16px;
     font-style: normal;
     font-weight: 300;
     line-height: 20px;
+  }
+
+  &:disabled {
+    border-radius: 12.028px;
+    border: 1.504px solid var(--gray-100);
+    background: var(--gray-200);
+  }
+}
+
+input[type="checkbox"] {
+  width: 28px;
+  height: 28px;
+
+  cursor: pointer;
+}
+
+.container-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    color: var(--blue-700);
+    font-family: var(--font-poppins);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 182%;
+  }
+}
+
+.container-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  label {
+    color: var(--gray-500);
+    font-family: var(--font-poppins);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
 }
