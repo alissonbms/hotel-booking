@@ -4,8 +4,10 @@ import styles from "./styles.module.scss";
 import { Button, Input } from "hotel-booking-components-library";
 import Logo from "../components/Logo";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const BookingCheck = () => {
+  const router = useRouter();
   const correctCode = "d4543ef4-40d3-423a-8a93-ecd7d79f1d5f";
   const [error, setError] = useState(false);
   const [input, setInput] = useState("");
@@ -19,6 +21,8 @@ const BookingCheck = () => {
       setError(true);
       return;
     }
+
+    router.push("/my-booking");
   };
 
   return (
@@ -32,7 +36,6 @@ const BookingCheck = () => {
             placeholder="Paste here your code"
             onChange={(e) => setInput(e.target.value)}
             value={input}
-            className=".input"
           />
         </div>
 

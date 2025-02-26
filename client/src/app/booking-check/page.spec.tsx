@@ -2,6 +2,14 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import BookingCheck from "./page";
 
 describe("Test Booking Consult page", () => {
+  vi.mock("next/navigation", () => ({
+    useRouter() {
+      return {
+        push: vi.fn(),
+      };
+    },
+  }));
+
   test("Should have a logo", async () => {
     render(<BookingCheck />);
 
