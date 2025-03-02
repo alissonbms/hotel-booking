@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { faker } from "@faker-js/faker";
 import RoomCard from "./index";
 
 describe("Test the RoomCard component", () => {
@@ -6,10 +7,10 @@ describe("Test the RoomCard component", () => {
     render(
       <RoomCard
         room={{
-          id: "123456789",
+          id: faker.database.collation(),
           name: "Super room",
           price: 50000,
-          image: "/assets/hotel-room-cover.jpg",
+          image: faker.image.url(),
           hasWifi: true,
           hasAir: true,
           hasKitchen: true,
@@ -27,10 +28,10 @@ describe("Test the RoomCard component", () => {
     render(
       <RoomCard
         room={{
-          id: "123456789",
+          id: faker.database.collation(),
           name: "Super room",
           price: 50000,
-          image: "/assets/hotel-room-cover.jpg",
+          image: faker.image.url(),
           hasWifi: true,
           hasAir: true,
           hasKitchen: true,
@@ -48,10 +49,10 @@ describe("Test the RoomCard component", () => {
     render(
       <RoomCard
         room={{
-          id: "123456789",
+          id: faker.database.collation(),
           name: "Super room",
           price: 50000,
-          image: "/assets/hotel-room-cover.jpg",
+          image: faker.image.url(),
           hasWifi: true,
           hasAir: true,
           hasKitchen: true,
@@ -69,10 +70,10 @@ describe("Test the RoomCard component", () => {
     render(
       <RoomCard
         room={{
-          id: "123456789",
+          id: faker.database.collation(),
           name: "Super room",
           price: 50000,
-          image: "/assets/hotel-room-cover.jpg",
+          image: faker.image.url(),
           hasWifi: false,
           hasAir: true,
           hasKitchen: true,
@@ -90,10 +91,10 @@ describe("Test the RoomCard component", () => {
     render(
       <RoomCard
         room={{
-          id: "123456789",
+          id: faker.database.collation(),
           name: "Super room",
           price: 300,
-          image: "/assets/hotel-room-cover.jpg",
+          image: faker.image.url(),
           hasWifi: true,
           hasAir: true,
           hasKitchen: true,
@@ -112,10 +113,10 @@ describe("Test the RoomCard component", () => {
     render(
       <RoomCard
         room={{
-          id: "123456789",
+          id: faker.database.collation(),
           name: "Super room",
           price: 50000,
-          image: "/assets/hotel-room-cover.jpg",
+          image: faker.image.url(),
           hasWifi: true,
           hasAir: true,
           hasKitchen: true,
