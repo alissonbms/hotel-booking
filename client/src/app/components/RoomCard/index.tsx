@@ -36,7 +36,7 @@ const RoomCard = ({ room }: IRoomCardProps) => {
             <h2>{formattedPriceUSD(room.price)}</h2>
             <span>/ per night</span>
           </div>
-          <Button colors="orange" variant="normal" width={200}>
+          <Button colors="orange" variant="normal" width={188}>
             Book room
           </Button>
         </div>
