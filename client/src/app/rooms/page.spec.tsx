@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import Rooms from "./page";
 
 describe("Test the Rooms page", () => {
@@ -33,6 +33,6 @@ describe("Test the Rooms page", () => {
 
     const room = await screen.findByText("Super room");
 
-    expect(room).toBeInTheDocument();
+    waitFor(() => expect(room).toBeInTheDocument());
   });
 });
