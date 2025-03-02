@@ -17,7 +17,7 @@ const Rooms = () => {
       isAvailable: false,
     },
     {
-      id: "123456789",
+      id: "987654321",
       name: "New room",
       price: 50000,
       image: "/assets/hotel-room-cover.jpg",
