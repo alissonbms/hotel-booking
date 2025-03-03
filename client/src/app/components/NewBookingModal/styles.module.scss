@@ -1,0 +1,128 @@
+.content {
+  width: 700px;
+  height: 670px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0px;
+  justify-content: space-between;
+
+  &--header {
+    h2 {
+      color: var(--gray-800);
+      font-family: var(--font-poppins);
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 152%;
+    }
+
+    span {
+      color: var(--gray-800);
+      font-family: var(--font-poppins);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%;
+    }
+  }
+
+  &--room {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+
+    img {
+      border-radius: 7.56px;
+    }
+
+    &__description {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h3 {
+        color: var(--gray-800);
+        font-family: var(--font-poppins);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 10px;
+
+        span {
+          color: var(--gray-600);
+          font-family: var(--font-poppins);
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 18.143px;
+        }
+      }
+
+      .price {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        h2 {
+          color: var(--gray-800);
+          font-family: var(--font-poppins);
+          font-size: 28px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
+
+        span {
+          color: var(--gray-800);
+          font-family: var(--font-poppins);
+          font-size: 12.095px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    label {
+      color: var(--blue-700);
+      font-family: var(--font-poppins);
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 182%;
+    }
+
+    input {
+      background: #fff;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.custom-padding {
+  padding-left: 32px;
+  padding-right: 32px;
+}
