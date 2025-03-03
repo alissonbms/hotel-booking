@@ -1,16 +1,25 @@
 "use client";
 
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import MyBooking from "./page";
 
+const mockBack = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    back: mockBack,
+  }),
+}));
+
 describe("Test the MyBooking page", () => {
-  vi.mock("next/navigation", () => ({
-    useRouter() {
-      return {
-        push: vi.fn(),
-      };
-    },
-  }));
+  test("Should call router.back() when button 'Go back' is clicked", async () => {
+    render(<MyBooking />);
+
+    const button = screen.getByText("Go back");
+    fireEvent.click(button);
+
+    expect(mockBack).toHaveBeenCalledTimes(1);
+  });
   test("Should have a title", async () => {
     render(<MyBooking />);
 
