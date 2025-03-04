@@ -1,6 +1,14 @@
-import { render, renderHook, screen } from "@testing-library/react";
+import { fireEvent, render, renderHook, screen } from "@testing-library/react";
 import NewBookingModal from "./index";
 import { useState } from "react";
+
+const mockReplace = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    replace: mockReplace,
+  }),
+}));
 
 describe("Test the NewBookingModal component", () => {
   beforeEach(() => {
@@ -17,6 +25,33 @@ describe("Test the NewBookingModal component", () => {
       />,
     );
   });
+  test("Should not render the NotificationDialog component initially", () => {
+    expect(screen.queryByText("Booking made!")).not.toBeInTheDocument();
+  });
+  test("Should show NotificationDialog component on 'Confirm booking' button click", async () => {
+    const openNotificationBtn = await screen.findByRole("button", {
+      name: "Confirm booking",
+    });
+
+    fireEvent.click(openNotificationBtn);
+
+    expect(screen.queryByText("Booking made!")).toBeInTheDocument();
+  });
+  test("Should hide NotificationDialog component when clicking 'Close' anchor tag", async () => {
+    const openNotificationBtn = await screen.findByRole("button", {
+      name: "Confirm booking",
+    });
+
+    fireEvent.click(openNotificationBtn);
+    expect(screen.queryByText("Booking made!")).toBeInTheDocument();
+
+    const actionTextClose = screen.queryByText("Close");
+
+    fireEvent.click(actionTextClose as unknown as Element);
+
+    expect(screen.queryByText("Booking made!")).not.toBeInTheDocument();
+  });
+
   test("Should have a title and a subtitle", () => {
     const title = screen.queryByText("New booking");
     const subtitle = screen.queryByText("Complete your booking below");
