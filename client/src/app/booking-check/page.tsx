@@ -5,6 +5,7 @@ import { Button, Input } from "hotel-booking-components-library";
 import Logo from "../components/Logo";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const BookingCheck = () => {
   const router = useRouter();
@@ -51,9 +52,11 @@ const BookingCheck = () => {
             Check booking
           </Button>
           {error && (
-            <Button colors="orange__outline" variant="normal" width={200}>
-              See available rooms
-            </Button>
+            <Link href={"/rooms"}>
+              <Button colors="orange__outline" variant="normal" width={200}>
+                See available rooms
+              </Button>
+            </Link>
           )}
         </div>
       </form>
