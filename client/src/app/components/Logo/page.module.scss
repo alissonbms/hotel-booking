@@ -1,4 +1,6 @@
 .container {
+  all: unset; /* Removes all default styles */
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-items: center;
