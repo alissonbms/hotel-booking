@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
+import Link from "next/link";
 
 interface ILogoProps {
   size?: number;
@@ -7,7 +8,7 @@ interface ILogoProps {
 
 const Logo = ({ size = 24 }: ILogoProps) => {
   return (
-    <div className={styles.container}>
+    <Link href="/" className={styles.container}>
       <h1
         style={{
           fontSize: `${size}px`,
@@ -21,7 +22,7 @@ const Logo = ({ size = 24 }: ILogoProps) => {
         height={size}
         width={size}
       />
-    </div>
+    </Link>
   );
 };
 
