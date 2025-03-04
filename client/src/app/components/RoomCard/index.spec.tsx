@@ -1,6 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import RoomCard from "./index";
+
+const mockReplace = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    replace: mockReplace,
+  }),
+}));
 
 describe("Test the RoomCard component", () => {
   test("Should have an image", async () => {
@@ -129,5 +137,67 @@ describe("Test the RoomCard component", () => {
     const bookBtn = await screen.findByRole("button");
 
     expect(bookBtn.textContent).toBe("Book room");
+  });
+  test("Should show NewBookingModal component when button 'Book room' is clicked", async () => {
+    render(
+      <RoomCard
+        room={{
+          id: faker.database.collation(),
+          name: "Super room",
+          price: 50000,
+          image: faker.image.url(),
+          hasWifi: true,
+          hasAir: true,
+          hasKitchen: true,
+          isPetFriendly: false,
+          isAvailable: false,
+        }}
+      />,
+    );
+
+    expect(screen.queryByText("New booking")).not.toBeInTheDocument();
+
+    const bookBtn = await screen.findByRole("button", {
+      name: "Book room",
+    });
+
+    fireEvent.click(bookBtn);
+
+    expect(screen.queryByText("New booking")).toBeInTheDocument();
+  });
+  test("Should hide NewBookingModal component when clicking 'Cancel' button", async () => {
+    render(
+      <RoomCard
+        room={{
+          id: faker.database.collation(),
+          name: "Super room",
+          price: 50000,
+          image: faker.image.url(),
+          hasWifi: true,
+          hasAir: true,
+          hasKitchen: true,
+          isPetFriendly: false,
+          isAvailable: false,
+        }}
+      />,
+    );
+
+    expect(screen.queryByText("New booking")).not.toBeInTheDocument();
+
+    const bookBtn = await screen.findByRole("button", {
+      name: "Book room",
+    });
+
+    fireEvent.click(bookBtn);
+
+    expect(screen.queryByText("New booking")).toBeInTheDocument();
+
+    const cancelBtn = await screen.findByRole("button", {
+      name: "Cancel",
+    });
+
+    expect(cancelBtn).toBeInTheDocument();
+    fireEvent.click(cancelBtn);
+    expect(screen.queryByText("New booking")).not.toBeInTheDocument();
   });
 });
