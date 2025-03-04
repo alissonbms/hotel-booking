@@ -5,15 +5,19 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import { Button } from "hotel-booking-components-library";
 import { formattedPriceUSD } from "@/utils/formatters";
-// import NewBookingModal from "../NewBookingModal";
-// import { useState } from "react";
+import NewBookingModal from "../NewBookingModal";
+import { useState } from "react";
 
 interface IRoomCardProps {
   room: Room;
 }
 
 const RoomCard = ({ room }: IRoomCardProps) => {
-  // const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const handleOpenBookingModal = () => {
+    setOpen(true);
+  };
 
   return (
     <div className={`${styles.container}`}>
@@ -40,13 +44,18 @@ const RoomCard = ({ room }: IRoomCardProps) => {
             <h2>{formattedPriceUSD(room.price)}</h2>
             <span>/ per night</span>
           </div>
-          <Button colors="orange" variant="normal" width={188}>
+          <Button
+            colors="orange"
+            variant="normal"
+            width={188}
+            onClick={handleOpenBookingModal}
+          >
             Book room
           </Button>
         </div>
       </div>
 
-      {/* <NewBookingModal open={open} handleClose={() => setOpen(false)} /> */}
+      <NewBookingModal open={open} handleClose={() => setOpen(false)} />
     </div>
   );
 };
