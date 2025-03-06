@@ -1,6 +1,13 @@
-import { fireEvent, render, renderHook, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import NewBookingModal from "./index";
 import { useState } from "react";
+import { useAppStore } from "@/store";
 
 const mockReplace = vi.fn();
 
@@ -17,6 +24,22 @@ describe("Test the NewBookingModal component", () => {
 
       return { open, setOpen };
     });
+
+    const renderStore = renderHook(() => useAppStore());
+
+    waitFor(() =>
+      renderStore.result.current.setCurrentRoom({
+        id: "123789456",
+        name: "Other room",
+        price: 750,
+        image: "/assets/hotel-room-cover.jpg",
+        hasWifi: true,
+        hasAir: true,
+        hasKitchen: true,
+        isPetFriendly: true,
+        isAvailable: false,
+      }),
+    );
 
     render(
       <NewBookingModal
