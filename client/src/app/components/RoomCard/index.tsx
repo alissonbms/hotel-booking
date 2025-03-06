@@ -7,15 +7,19 @@ import { Button } from "hotel-booking-components-library";
 import { formattedPriceUSD } from "@/utils/formatters";
 import NewBookingModal from "../NewBookingModal";
 import { useState } from "react";
+import { useAppStore } from "@/store";
 
 interface IRoomCardProps {
   room: Room;
 }
 
 const RoomCard = ({ room }: IRoomCardProps) => {
+  const { setCurrentRoom } = useAppStore();
+
   const [open, setOpen] = useState(false);
 
   const handleOpenBookingModal = () => {
+    setCurrentRoom(room);
     setOpen(true);
   };
 

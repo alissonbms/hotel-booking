@@ -7,27 +7,17 @@ import {
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { FormEvent, useState } from "react";
-import Room from "@/entities/Room";
 import { useRouter } from "next/navigation";
+import { useAppStore } from "@/store";
 
 interface INewBookingModalProps {
   open: boolean;
   handleClose: () => void;
 }
 const NewBookingModal = ({ open, handleClose }: INewBookingModalProps) => {
+  const { currentRoom } = useAppStore();
   const router = useRouter();
   const [success, setSuccess] = useState(false);
-  const [currentRoom] = useState<Room>({
-    id: "123789456",
-    name: "Other room",
-    price: 750,
-    image: "/assets/hotel-room-cover.jpg",
-    hasWifi: true,
-    hasAir: true,
-    hasKitchen: true,
-    isPetFriendly: true,
-    isAvailable: false,
-  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
