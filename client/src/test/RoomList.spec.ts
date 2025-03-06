@@ -147,7 +147,7 @@ describe("Test the RoomList entity", () => {
     expect(newRoomList.getRooms()).toHaveLength(3);
 
     const unknownRoom: Room = {
-      id: faker.database.collation(),
+      id: "7ee65c11-2059-4003-b1ee-ed19fea86251.unknownRoom",
       name: faker.company.name(),
       price: parseFloat(faker.commerce.price()),
       image: faker.image.url(),
