@@ -1,5 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import Rooms from "./page";
+import { container, Registry } from "@/infra/ContainerRegistry";
+import { RoomsInMemoryGateway } from "@/gateways/RoomsInMemoryGateway";
+import { faker } from "@faker-js/faker";
 
 const mockReplace = vi.fn();
 
@@ -10,6 +13,35 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("Test the Rooms page", () => {
+  beforeEach(() => {
+    container.rebind(Registry.RoomsHttpGateway).toDynamicValue(() => {
+      return new RoomsInMemoryGateway([
+        {
+          id: faker.database.collation(),
+          name: "Street room",
+          price: parseFloat(faker.commerce.price()),
+          image: faker.image.url(),
+          hasWifi: true,
+          hasAir: true,
+          hasKitchen: true,
+          isPetFriendly: false,
+          isAvailable: true,
+        },
+        {
+          id: faker.database.collation(),
+          name: "Sailor room",
+          price: parseFloat(faker.commerce.price()),
+          image: faker.image.url(),
+          hasWifi: true,
+          hasAir: true,
+          hasKitchen: true,
+          isPetFriendly: false,
+          isAvailable: true,
+        },
+      ]);
+    });
+  });
+
   test("Should have a header with a logo", async () => {
     render(<Rooms />);
 
@@ -36,10 +68,10 @@ describe("Test the Rooms page", () => {
     expect(roomsList).toBeInTheDocument();
   });
 
-  test("Should have a room with the name 'Super room' at the rooms list", async () => {
+  test("Should have a room with the name 'Street room' at the rooms list", async () => {
     render(<Rooms />);
 
-    const room = await screen.findByText("Super room");
+    const room = await screen.findByText("Street room");
 
     waitFor(() => expect(room).toBeInTheDocument());
   });
