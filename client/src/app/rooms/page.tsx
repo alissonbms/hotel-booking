@@ -1,6 +1,5 @@
 "use client";
 
-import Room from "@/entities/Room";
 import Logo from "../components/Logo";
 import styles from "./page.module.scss";
 import RoomCard from "../components/RoomCard";
@@ -8,10 +7,11 @@ import { useEffect, useRef, useState } from "react";
 import RoomsHttpGateway from "@/gateways/RoomsHttpGateway";
 import { container, Registry } from "@/infra/ContainerRegistry";
 import RoomList from "@/entities/RoomList";
+import { useAppStore } from "@/store";
 
 const Rooms = () => {
   const render = useRef(0);
-  const [rooms, setRooms] = useState<Room[]>([]);
+  const { rooms, setRooms } = useAppStore();
   const [roomList, setRoomList] = useState<RoomList>();
   const [roomsHttp, setRoomsHttp] = useState<RoomsHttpGateway>();
 
