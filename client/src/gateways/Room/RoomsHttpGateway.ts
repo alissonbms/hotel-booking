@@ -28,32 +28,62 @@ export default class RoomsHttpGateway implements IRoomsGateway {
     return rooms;
   }
   async getRoom(roomId: string): Promise<Room> {
+    if (!roomId) {
+      throw new Error("Invalid room ID");
+    }
+
     const data: Room = await this.httpClient.get(
       `${this.baseUrl}/rooms/${roomId}`,
     );
 
+    if (!data) {
+      throw new Error("Room not found");
+    }
+
     return data;
   }
-  async setRoom(newRoom: Room): Promise<Room> {
+  async setRoom(room: Room): Promise<Room> {
+    if (!room.id || !room.name || !room.price || !room.image) {
+      throw new Error(
+        "Failed while trying to finish the room creation, seems some info are missing",
+      );
+    }
+
     const data: Room = await this.httpClient.post(
       `${this.baseUrl}/rooms`,
-      newRoom,
+      room,
     );
 
     return data;
   }
   async updateRoom(editedRoom: Room): Promise<Room> {
+    if (!editedRoom.id) {
+      throw new Error("Invalid room ID");
+    }
+
     const data: Room = await this.httpClient.put(
       `${this.baseUrl}/rooms/${editedRoom.id}`,
       editedRoom,
     );
 
+    if (!data) {
+      throw new Error("Room not found");
+    }
+
     return data;
   }
   async deleteRoom(roomId: string): Promise<Room> {
+    if (!roomId) {
+      throw new Error("Invalid room ID");
+    }
+
     const data: Room = await this.httpClient.get(
       `${this.baseUrl}/rooms/${roomId}`,
     );
+
+    if (!data) {
+      throw new Error("Room not found");
+    }
 
     return data;
   }

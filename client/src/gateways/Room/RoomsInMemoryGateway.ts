@@ -13,6 +13,10 @@ export class RoomsInMemoryGateway implements IRoomsGateway {
   }
 
   async getRoom(roomId: string): Promise<Room> {
+    if (!roomId) {
+      throw new Error("Invalid room ID");
+    }
+
     const room = this.rooms.find((r) => r.id === roomId);
 
     if (!room) {
@@ -22,25 +26,35 @@ export class RoomsInMemoryGateway implements IRoomsGateway {
     return room;
   }
 
-  async setRoom(newRoom: Room): Promise<Room> {
-    this.rooms.push(
-      new Room(
-        newRoom.id,
-        newRoom.name,
-        newRoom.price,
-        newRoom.image,
-        newRoom.hasWifi,
-        newRoom.hasAir,
-        newRoom.hasKitchen,
-        newRoom.isPetFriendly,
-        newRoom.isAvailable,
-      ),
+  async setRoom(room: Room): Promise<Room> {
+    if (!room.id || !room.name || !room.price || !room.image) {
+      throw new Error(
+        "Failed while trying to finish the room creation, seems some info are missing",
+      );
+    }
+
+    const newRoom = new Room(
+      room.id,
+      room.name,
+      room.price,
+      room.image,
+      room.hasWifi,
+      room.hasAir,
+      room.hasKitchen,
+      room.isPetFriendly,
+      room.isAvailable,
     );
+
+    this.rooms.push(newRoom);
 
     return newRoom;
   }
 
   async updateRoom(editedRoom: Room): Promise<Room> {
+    if (!editedRoom.id) {
+      throw new Error("Invalid room ID");
+    }
+
     const existingRoom = this.rooms.find((r) => r.id === editedRoom.id);
 
     if (!existingRoom) {
@@ -53,6 +67,10 @@ export class RoomsInMemoryGateway implements IRoomsGateway {
   }
 
   async deleteRoom(roomId: string): Promise<Room> {
+    if (!roomId) {
+      throw new Error("Invalid room ID");
+    }
+
     const room = this.rooms.find((r) => r.id === roomId);
 
     if (!room) {
