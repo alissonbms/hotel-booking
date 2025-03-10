@@ -13,7 +13,12 @@ export default defineConfig({
     setupFiles: "./src/testsSetup.ts",
     coverage: {
       provider: "v8",
-      exclude: ["./**"],
+      exclude: [
+        "./**",
+        "src/infra/**",
+        "src/infra/adapters/**",
+        "src/gateways/**",
+      ],
     },
   },
   resolve: {
