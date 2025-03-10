@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import Rooms from "./page";
 import { container, Registry } from "@/infra/ContainerRegistry";
-import { RoomsInMemoryGateway } from "@/gateways/RoomsInMemoryGateway";
+import { RoomsInMemoryGateway } from "@/gateways/room/RoomsInMemoryGateway";
 import { faker } from "@faker-js/faker";
 
 const mockReplace = vi.fn();

@@ -4,7 +4,7 @@ import Logo from "../components/Logo";
 import styles from "./page.module.scss";
 import RoomCard from "../components/RoomCard";
 import { useEffect, useRef, useState } from "react";
-import RoomsHttpGateway from "@/gateways/RoomsHttpGateway";
+import RoomsHttpGateway from "@/gateways/room/RoomsHttpGateway";
 import { container, Registry } from "@/infra/ContainerRegistry";
 import RoomList from "@/entities/RoomList";
 import { useAppStore } from "@/store";

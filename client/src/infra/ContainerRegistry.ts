@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { Container } from "inversify";
 import FetchAdapter from "./adapters/FetchAdapter";
 import AxiosAdapter from "./adapters/AxiosAdapter";
-import RoomsHttpGateway from "@/gateways/RoomsHttpGateway";
+import RoomsHttpGateway from "@/gateways/room/RoomsHttpGateway";
 import RoomList from "@/entities/RoomList";
 
 export const Registry = {
