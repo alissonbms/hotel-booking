@@ -28,15 +28,13 @@ export default class BookingList {
     return this.bookings;
   }
 
-  cancelBooking(booking: Booking) {
-    const existingBooking = this.bookings.find((b) => b.id === booking.id);
+  deleteBooking(booking: Booking) {
+    const existingBooking = this.bookings.find((r) => r.id === booking.id);
 
     if (!existingBooking) {
       throw new Error("Booking not found");
     }
 
-    const bookingIndex = this.bookings.indexOf(existingBooking);
-
-    this.bookings[bookingIndex] = { ...booking, isActive: false };
+    this.bookings.splice(this.bookings.indexOf(existingBooking), 1);
   }
 }

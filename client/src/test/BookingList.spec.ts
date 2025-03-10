@@ -74,7 +74,7 @@ describe("Test the BookingList entity", () => {
 
     expect(newBookingList.getBookings()).toHaveLength(3);
   });
-  test("Should cancel a valid booking from the bookings array", () => {
+  test("Should delete a valid booking from the bookings array", () => {
     const newBookingList = new BookingList();
 
     const bookings: Booking[] = [
@@ -136,20 +136,18 @@ describe("Test the BookingList entity", () => {
 
     newBookingList.setBookings(bookings);
     expect(newBookingList.getBookings()).toHaveLength(3);
-
-    expect(newBookingList.getBookings()[0].id).toBe(bookings[0].id);
-    expect(newBookingList.getBookings()[0].isActive).toBe(true);
-
-    newBookingList.cancelBooking(bookings[0]);
-    expect(newBookingList.getBookings()[0].isActive).toBe(false);
-    expect(newBookingList.getBookings()[0].isActive).not.toBe(
-      bookings[0].isActive,
-    );
     expect(newBookingList.getBookings()[0].customer).toBe(bookings[0].customer);
-    expect(newBookingList.getBookings()).toHaveLength(3);
+
+    newBookingList.deleteBooking(bookings[0]);
+
+    expect(newBookingList.getBookings()[0].customer).not.toBe(
+      bookings[0].customer,
+    );
+
+    expect(newBookingList.getBookings()).toHaveLength(2);
   });
 
-  test("Should NOT cancel a invalid booking from the bookings array", () => {
+  test("Should NOT delete a invalid booking from the bookings array", () => {
     const newBookingList = new BookingList();
 
     const bookings: Booking[] = [
@@ -231,7 +229,7 @@ describe("Test the BookingList entity", () => {
     newBookingList.setBookings(bookings);
     expect(newBookingList.getBookings()).toHaveLength(3);
 
-    expect(() => newBookingList.cancelBooking(unknownBooking)).toThrow(
+    expect(() => newBookingList.deleteBooking(unknownBooking)).toThrow(
       "Booking not found",
     );
 
