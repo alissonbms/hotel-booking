@@ -18,6 +18,11 @@ export default class AxiosAdapter implements IHttpClient {
 
     return response.data;
   }
+  async patch(url: string, body: any): Promise<any> {
+    const response = await axios.patch(url, body);
+
+    return response.data;
+  }
   async delete(url: string): Promise<any> {
     const response = await axios.delete(url);
 
