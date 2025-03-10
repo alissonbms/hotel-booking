@@ -17,14 +17,13 @@ const Rooms = () => {
 
   useEffect(() => {
     (async () => {
-      if (!roomsHttp) return;
-      if (!roomList) return;
+      if (!roomsHttp || !roomList) return;
 
       const data = await roomsHttp.getRooms();
       roomList.setRooms(data);
       setRooms(data);
     })();
-  }, [roomList, roomsHttp]);
+  }, [roomList, roomsHttp, setRooms]);
 
   useEffect(() => {
     if (render.current === 0) {
