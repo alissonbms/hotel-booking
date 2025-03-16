@@ -6,22 +6,54 @@ import {
 } from "hotel-booking-components-library";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
+import BookingsHttpGateway from "@/gateways/booking/BookingsHttpGateway";
+import { container, Registry } from "@/infra/ContainerRegistry";
 
 interface INewBookingModalProps {
   open: boolean;
   handleClose: () => void;
 }
 const NewBookingModal = ({ open, handleClose }: INewBookingModalProps) => {
-  const { currentRoom } = useAppStore();
   const router = useRouter();
+  const { currentRoom, setCurrentBooking } = useAppStore();
+  const render = useRef(0);
+  const [bookingsHttp, setBookingsHttp] = useState<BookingsHttpGateway>();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [days, setDays] = useState(0);
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  useEffect(() => {
+    if (render.current === 0) {
+      setBookingsHttp(
+        container.get<BookingsHttpGateway>(Registry.BookingsHttpGateway),
+      );
+
+      render.current = 1;
+    }
+  }, []);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSuccess(true);
+
+    try {
+      const data = await bookingsHttp?.setBooking({
+        customer: name,
+        email: email,
+        days: days,
+        roomId: currentRoom.id,
+      });
+
+      if (data) {
+        setCurrentBooking(data);
+        setSuccess(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCloseNotificationDialog = () => {
@@ -86,7 +118,9 @@ const NewBookingModal = ({ open, handleClose }: INewBookingModalProps) => {
                     name="name"
                     id="name "
                     type="text"
-                    placeholder="Enter the guest name"
+                    placeholder="Enter the customer name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div>
@@ -96,6 +130,19 @@ const NewBookingModal = ({ open, handleClose }: INewBookingModalProps) => {
                     id="email"
                     type="text"
                     placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="days">Days</label>
+                  <input
+                    name="days"
+                    id="days"
+                    type="number"
+                    value={days}
+                    onChange={(e) => setDays(e.target.valueAsNumber)}
+                    data-testid="number-of-days-stay"
                   />
                 </div>
               </div>
@@ -130,7 +177,7 @@ const NewBookingModal = ({ open, handleClose }: INewBookingModalProps) => {
         title="Booking made!"
         description="You will receive an email with
 more information."
-        actionText="Close"
+        actionText="Check booking"
         handleClose={handleCloseNotificationDialog}
         handleNextLocation={handleNextLocation}
       />
