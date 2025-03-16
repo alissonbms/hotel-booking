@@ -27,7 +27,7 @@ const MyBooking = () => {
 
       <div className={`${styles["container--content"]} max-width`}>
         <Image
-          src="/assets/hotel-room-cover.jpg"
+          src={currentBooking.room.image}
           alt="hotel room cover"
           width={580}
           height={405}
