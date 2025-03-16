@@ -1,5 +1,6 @@
 import Booking from "@/entities/Booking";
 import IBookingsGateway from "./IBookingsGateway";
+import { BookingUnion } from "../../../types/BookingUnion";
 
 export class BookingsInMemoryGateway implements IBookingsGateway {
   protected bookings: Booking[];
@@ -24,19 +25,12 @@ export class BookingsInMemoryGateway implements IBookingsGateway {
 
     return booking;
   }
-  async setBooking(booking: Booking): Promise<Booking> {
-    if (
-      !booking.id ||
-      !booking.room ||
-      !booking.days ||
-      !booking.customer ||
-      !booking.email
-    ) {
+  async setBooking(booking: Extract<BookingUnion, Booking>): Promise<Booking> {
+    if (!booking.days || !booking.customer || !booking.email) {
       throw new Error(
         "Failed while trying to finish the booking, seems some info are missing",
       );
     }
-
     const newBooking = new Booking(
       booking.id,
       booking.room,
