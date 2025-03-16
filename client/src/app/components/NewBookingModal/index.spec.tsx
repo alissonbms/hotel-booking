@@ -128,7 +128,7 @@ describe("Test the NewBookingModal component", () => {
 
     expect(await screen.findByText("Booking made!")).toBeInTheDocument();
   });
-  test("Should hide NotificationDialog component when clicking 'Close' anchor tag", async () => {
+  test("Should hide NotificationDialog component when clicking 'Check booking' anchor tag", async () => {
     setup();
 
     const customerNameInput = screen.getByPlaceholderText(
@@ -155,10 +155,14 @@ describe("Test the NewBookingModal component", () => {
     expect(openNotificationBtn).toBeInTheDocument();
     fireEvent.click(openNotificationBtn);
 
-    const btnCloseNotificationDialog = await screen.findByText("Check booking");
-    expect(btnCloseNotificationDialog).toBeInTheDocument();
+    expect(await screen.findByText("Booking made!")).toBeInTheDocument();
 
-    fireEvent.click(btnCloseNotificationDialog);
+    const CloseNotificationDialogAnchorTag = await screen.findByText(
+      "Check booking",
+    );
+    expect(CloseNotificationDialogAnchorTag).toBeInTheDocument();
+
+    fireEvent.click(CloseNotificationDialogAnchorTag);
 
     expect(screen.queryByText("Booking made!")).toBeNull();
   });
