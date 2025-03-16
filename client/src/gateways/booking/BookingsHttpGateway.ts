@@ -1,6 +1,8 @@
 import IHttpClient from "@/infra/IHttpClient";
 import Booking from "@/entities/Booking";
 import IBookingsGateway from "./IBookingsGateway";
+import { BookingUnion } from "../../../types/BookingUnion";
+import BookingDto from "@/infra/dtos/BookingDto";
 
 export default class BookingsHttpGateway implements IBookingsGateway {
   constructor(protected httpClient: IHttpClient, protected baseUrl: string) {}
@@ -40,10 +42,11 @@ export default class BookingsHttpGateway implements IBookingsGateway {
 
     return data;
   }
-  async setBooking(booking: Booking): Promise<Booking> {
+  async setBooking(
+    booking: Extract<BookingUnion, BookingDto>,
+  ): Promise<Booking> {
     if (
-      !booking.id ||
-      !booking.room ||
+      !booking.roomId ||
       !booking.days ||
       !booking.customer ||
       !booking.email
