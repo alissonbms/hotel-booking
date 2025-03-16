@@ -68,7 +68,7 @@ const NewBookingModal = ({ open, handleClose }: INewBookingModalProps) => {
   return (
     <>
       {!success && (
-        <Modal width={700} height={670} open={open}>
+        <Modal width={700} height={850} open={open}>
           <div className={styles.content}>
             <div
               className={`${styles["content--header"]} ${styles["custom-padding"]}`}
